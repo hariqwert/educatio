@@ -97,35 +97,7 @@
   </footer>
   
   
-<h1>Mark Seeing Website</h1>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <style>
-    .no-border {
-      border: none;
-      text-align: center;
-    }
-    .pass {
-      color: green;
-      font-weight: bold;
-    }
-    .fail {
-      color: red;
-      font-weight: bold;
-    }
-    .grade {
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
 
-  <div class="container mt-5">
-    <h2>Mark Seeing Website</h2>
-    <form>
-      <div class="form-group">
-        <label for="registerNumber">Register Number:</label>
-        <input type="text" class="form-control" id="registerNumber" placeholder="Enter register number" pattern="\d+" title="Please enter only numbers" required>
-      </div>
       <button type="button" class="btn btn-primary" onclick="showMarks()">Show Marks</button>
       <button type="button" class="btn btn-success" onclick="printMarks()" style="display: none;">Print Mark List</button>
     </form>
@@ -135,75 +107,3 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-  <script>
-    function showMarks() {
-      var registerNumber = document.getElementById("registerNumber").value;
-      var markListDiv = document.getElementById("markList");
-      var printButton = document.querySelector("button[type='button'][onclick='printMarks()']");
-
-      if (registerNumber === "123") {
-        var markDetails = [
-          { subject: "ZHSS Hindi Result", mark: "" },
-          { subject: "Rth", mark: "" },
-          { subject: "English", mark: 33 },
-          { subject: "Maths", mark: 33 },
-        ];
-      } else if (registerNumber === "1234" || registerNumber === "134") {
-        var markDetails = [
-          { subject: "ZHSS Hindi Result", mark: "" },
-          { subject: "Ramu", mark: "" },
-          { subject: "English", mark:  },
-          { subject: "Maths", mark: 59 },
-        ];
-      } else {
-        markListDiv.innerHTML = 'No mark details found for the given register number.';
-        printButton.style.display = "none";
-        return;
-      }
-
-      var table = '<table class="table table-bordered"><tbody>';
-      for (var i = 0; i < markDetails.length; i++) {
-        if (i === 0 || i === 1) {
-          table += '<tr><td colspan="3" class="no-border">' + markDetails[i].subject + '</td></tr>';
-        } else {
-          table += '<tr><td>' + markDetails[i].subject + '</td><td>' + markDetails[i].mark + '</td><td>' + calculateGrade(markDetails[i].mark) + '</td></tr>';
-        }
-      }
-
-      var mathsMark = markDetails[3].mark;
-      var englishMark = markDetails[2].mark;
-
-      if (mathsMark > 23.64 && englishMark > 23.67) {
-        table += '<tr><td colspan="3" class="no-border pass">You are passed</td></tr>';
-      } else if (mathsMark <= 23.64 || englishMark <= 23.67) {
-        table += '<tr><td colspan="3" class="no-border fail">You are failed</td></tr>';
-      }
-
-      table += '</tbody></table>';
-
-      markListDiv.innerHTML = table;
-      printButton.style.display = "block";
-    }
-
-    function calculateGrade(mark) {
-      if (mark >= 90 && mark <= 100) {
-        return 'A+';
-      } else if (mark >= 80 && mark < 90) {
-        return 'A';
-      } else if (mark >= 10 && mark < 80) {
-        return 'R+';
-      }
-    }
-
-    function printMarks() {
-      var printContents = document.getElementById("markList").innerHTML;
-      var originalContents = document.body.innerHTML;
-
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-    }
-  </script>
-
-</body>
-</html>
